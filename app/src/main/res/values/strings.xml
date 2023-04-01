@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Recipe App</string>
+    <string name="signup_title">Sign Up</string>
+    <string name="signup_name_hint">Enter your name</string>
+    <string name="signup_email_hint">Enter your email</string>
+    <string name="signup_password_hint">Enter your password</string>
+    <string name="category_array_name">recipe_categories</string>
+    <string name="spinner_prompt">Choose a category</string>
+    <string-array name="category_array">
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten-free</item>
+        <item>Dairy-free</item>
+        <item>Keto</item>
+        <item>Paleo</item>
+        <item>Low-carb</item>
+        <item>Low-fat</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="saved">Saved</string>
+</resources>

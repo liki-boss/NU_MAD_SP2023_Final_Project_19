@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundPrimary"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Category RecyclerView -->
+    <HorizontalScrollView
+        android:id="@+id/categories_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@color/backgroundPrimary">
+
+        <LinearLayout
+            android:id="@+id/categories_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_all"
+                style="@style/CategoryButton"
+                android:text="All" />
+
+            <Button
+                android:id="@+id/btn_vegetarian"
+                style="@style/CategoryButton"
+                android:text="Vegetarian" />
+
+            <Button
+                android:id="@+id/btn_vegan"
+                style="@style/CategoryButton"
+                android:text="Vegan" />
+
+            <Button
+                android:id="@+id/btn_gluten_free"
+                style="@style/CategoryButton"
+                android:text="Gluten-free" />
+
+            <Button
+                android:id="@+id/btn_dairy_free"
+                style="@style/CategoryButton"
+                android:text="Dairy-free" />
+
+            <Button
+                android:id="@+id/btn_keto"
+                style="@style/CategoryButton"
+                android:text="Keto" />
+
+            <Button
+                android:id="@+id/btn_paleo"
+                style="@style/CategoryButton"
+                android:text="Paleo" />
+
+            <Button
+                android:id="@+id/btn_low_carb"
+                style="@style/CategoryButton"
+                android:text="Low-carb" />
+
+            <Button
+                android:id="@+id/btn_low_fat"
+                style="@style/CategoryButton"
+                android:text="Low-fat" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <!-- Recipe RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipe_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        android:layout_below="@id/categories_scroll_view"
+        tools:listitem="@layout/cards_for_category"/>
+
+</RelativeLayout>

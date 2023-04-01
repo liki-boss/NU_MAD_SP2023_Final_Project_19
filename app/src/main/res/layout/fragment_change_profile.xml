@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/backgroundPrimary">
+
+    <!-- Profile image -->
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/profile_placeholder"/>
+
+
+    <!-- User bio -->
+    <EditText
+        android:id="@+id/user_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="I am a software developer."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"/>
+
+    <!-- User details -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter username"
+            android:textSize="16sp"
+            android:textColorHint="@color/hint_text_color"
+            android:background="@drawable/edit_text_background"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:paddingTop="16dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter email-id"
+            android:textSize="16sp"
+            android:textColorHint="@color/hint_text_color"
+            android:background="@drawable/edit_text_background"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dietary Regime"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:paddingTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/dietary_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:textSize="16sp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/category_array"
+            android:prompt="@string/spinner_prompt"
+            android:paddingStart="8dp"/>
+
+    </LinearLayout>
+
+    <!-- Edit profile button -->
+    <Button
+        android:id="@+id/edit_profile_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:background="@drawable/button_rounded2"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

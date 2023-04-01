@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundPrimary"
+    tools:context=".ComposeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Recipe Title"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/recipe_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Recipe Description"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/recipe_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingredients"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/recipe_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Steps"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/recipe_calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Calories (required)"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="16sp"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dietary Restrictions (if any)"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/vegetarian_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegetarian" />
+
+        <CheckBox
+            android:id="@+id/vegan_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegan" />
+
+        <CheckBox
+            android:id="@+id/gluten_free_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gluten-free" />
+
+        <CheckBox
+            android:id="@+id/dairy_free_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dairy-free" />
+
+        <CheckBox
+            android:id="@+id/keto_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keto" />
+
+        <CheckBox
+            android:id="@+id/paleo_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paleo" />
+
+        <CheckBox
+            android:id="@+id/cb_low_carb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Low-carb" />
+
+        <CheckBox
+            android:id="@+id/cb_low_fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Low-fat" />
+    </LinearLayout>
+
+        <!-- Image upload field -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Image upload:"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_upload_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Image" />
+
+
+        <!-- Submit button -->
+        <Button
+            android:id="@+id/btn_submit_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Recipe" />
+
+    </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

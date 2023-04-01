@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Recipe title -->
+        <TextView
+            android:id="@+id/recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Recipe Title"/>
+
+        <!-- Calorie card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Calories:"/>
+
+            <TextView
+                android:id="@+id/calorie_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="200"/>
+        </LinearLayout>
+
+        <!-- Dietary restrictions -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:text="Dietary Restrictions:"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/vegetarian_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Vegetarian"
+                android:paddingEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/vegan_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Vegan"
+                android:paddingEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/gluten_free_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Gluten-free"
+                android:paddingEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/dairy_free_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Dairy-free"/>
+        </LinearLayout>
+
+        <!-- Ingredients -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:text="Ingredients:"/>
+
+        <TextView
+            android:id="@+id/ingredient_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="16dp"
+            android:textColor="@color/black"
+            android:text="List of ingredients"
+            android:paddingBottom="16dp"/>
+
+        <!-- Instructions -->
+        <TextView
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Instructions:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:paddingLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/instructions_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="random text."
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"/>
+
+        <!-- Google Maps -->
+        <TextView
+            android:id="@+id/nearby_stores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nearby Stores:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:paddingLeft="16dp"/>
+
+        <!-- Rating -->
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/rating_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rate this recipe:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="16dp"/>
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="3.5"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- Comments -->
+        <!-- Comments section -->
+        <TextView
+            android:id="@+id/comments_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comments"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:textStyle="bold"/>
+
+        <!-- Comments list view -->
+        <ListView
+            android:id="@+id/comments_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:paddingLeft="16dp"
+            android:dividerHeight="0dp"/>
+
+        <!-- Add comment section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- Comment input field -->
+            <EditText
+                android:id="@+id/comment_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_background"
+                android:hint="Add a comment..."
+                android:minHeight="48dp"
+                android:paddingStart="8dp"
+                android:textSize="16sp" />
+
+            <!-- Submit comment button -->
+            <Button
+                android:id="@+id/submit_comment_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rounded"
+                android:layout_marginStart="16dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
