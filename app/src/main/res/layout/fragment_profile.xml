@@ -15,34 +15,13 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/profile_placeholder"/>
 
-    <!-- User name -->
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Likith V P"
-        android:textColor="@color/black"
-        android:textSize="24sp"/>
-
-    <!-- User bio -->
-    <TextView
-        android:id="@+id/user_bio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="I am a software developer."
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp"/>
-
     <!-- User details -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        android:paddingTop="24dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -52,12 +31,13 @@
             android:textColor="@color/black"/>
 
         <TextView
+            android:id="@+id/userNameProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
             android:hint="Enter username"
-            android:textSize="16sp"
             android:textColorHint="@color/hint_text_color"
-            android:background="@drawable/edit_text_background"/>
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -68,12 +48,13 @@
             android:paddingTop="16dp"/>
 
         <TextView
+            android:id="@+id/emailProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
             android:hint="Enter email-id"
-            android:textSize="16sp"
             android:textColorHint="@color/hint_text_color"
-            android:background="@drawable/edit_text_background"/>
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -84,7 +65,7 @@
             android:paddingTop="16dp"/>
 
         <TextView
-            android:id="@+id/dietary_spinner"
+            android:id="@+id/dietProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_background"
