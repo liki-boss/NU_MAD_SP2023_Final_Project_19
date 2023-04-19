@@ -94,6 +94,7 @@ public class ComposeFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("username", MODE_PRIVATE);
         String token = sharedPreferences.getString("token","default_value");
+        String username = sharedPreferences.getString("displayName","default_value");
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,8 +143,9 @@ public class ComposeFragment extends Fragment {
                     data.put("calories",calories.getText().toString());
                     data.put("diet_category",category_value);
                     data.put("image",recipeImage);
-                    data.put("author",token);
+                    data.put("author",username);
                     data.put("ratings",0);
+                    data.put("ratings_count",0);
                     data.put("comments",new ArrayList<String>());
 
                     db.collection("recipes").document(title.getText().toString()).set(data)

@@ -27,4 +27,23 @@
     <string name="recipe_title">Recipe Title</string>
     <string name="recipe_summary">Recipe summary</string>
     <string name="recipe_author">Recipe author</string>
+    <string name="dietary_restrictions">Dietary Restrictions:</string>
+    <string name="calories">Calories:</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="gluten_free">Gluten-free</string>
+    <string name="keto">Keto</string>
+    <string name="dairy_free">Dairy-free</string>
+    <string name="paleo">Paleo</string>
+    <string name="low_carb">Low-carb</string>
+    <string name="low_fat">Low-Fat</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="list_of_ingredients">List of ingredients:</string>
+    <string name="instructions">Instructions:</string>
+    <string name="nearby_stores">Nearby Stores:</string>
+    <string name="rate_this_recipe">Rate this recipe:</string>
+    <string name="comments">Comments</string>
+    <string name="add_a_comment">Add a comment...</string>
+    <string name="post">Post</string>
+    <string name="save_this_post">Save this post!</string>
 </resources>

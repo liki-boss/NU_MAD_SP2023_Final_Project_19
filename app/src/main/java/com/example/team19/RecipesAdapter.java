@@ -1,6 +1,7 @@
 package com.example.team19;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     private Activity activity;
     public fromRecipesAdapterToFragment mListener;
 
+    public void setmListener(fromRecipesAdapterToFragment mListener) {
+        this.mListener = mListener;
+    }
+
     public RecipesAdapter(List<Recipes>recipe, Activity activity){
         this.recipes = recipe;
         this.activity = activity;
@@ -36,7 +41,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cards_for_category,parent,false);
-        return new RecipesAdapter.ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, recipes);
+        return viewHolder;
     }
 
     @Override
@@ -62,7 +68,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         private TextView author;
         private ImageView recipeImage;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, List<Recipes> recipe) {
             super(itemView);
             recipeImage = itemView.findViewById(R.id.recipe_image);
             title = itemView.findViewById(R.id.recipe_title);
@@ -71,7 +77,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    mListener.onClick(recipes.get(position).getTitle());
+                    mListener.onClick(recipe.get(position).getTitle());
                 }
             });
         }

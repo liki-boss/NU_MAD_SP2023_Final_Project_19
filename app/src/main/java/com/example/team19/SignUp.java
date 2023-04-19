@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -47,7 +46,7 @@ public class SignUp extends Fragment {
     FirebaseAuth mAuth;
 
     public SignUp() {
-        // Required empty public constructor
+        user = new User();
     }
 
     @Override
@@ -96,10 +95,10 @@ public class SignUp extends Fragment {
             if(!user.getCategory().equals("")){
                 category.setSelection(Arrays.asList(R.array.category_array).indexOf(user.getCategory()));
             }
-            if(!user.getProfilePhoto().equals("")){
+            if(!user.getProfile().equals("")){
                 RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
                 Glide.with(getContext())
-                        .load(user.getProfilePhoto())
+                        .load(user.getProfile())
                         .apply(requestOptions)
                         .into(profile);
             }
@@ -129,14 +128,14 @@ public class SignUp extends Fragment {
             else if(!emailValidation(email.getText().toString())){
                 Toast.makeText(getContext(), "Enter a valid email-Id!", Toast.LENGTH_LONG).show();
             }
-            else if(user.getProfilePhoto().equals("")){
+            else if(user.getProfile().equals("")){
                 Toast.makeText(getContext(), "Upload a profile photo!", Toast.LENGTH_LONG).show();
             }
             else if(!password.getText().toString().equals(confirm_password.getText().toString())){
                 Toast.makeText(getContext(), "Password mismatch error!", Toast.LENGTH_LONG).show();
             }
             else {
-                User tempUser = new User(name.getText().toString(),email.getText().toString(),category_value, user.getProfilePhoto(), password.getText().toString(), new ArrayList<>(), new ArrayList<>());
+                User tempUser = new User(name.getText().toString(),email.getText().toString(),category_value, user.getProfile(), password.getText().toString(), new ArrayList<>(), new ArrayList<>());
                 sendControl.register(tempUser);
             }
         });

@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements Login.fromLoginTo
         Boolean cameraAllowed = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         Boolean readAllowed = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         Boolean writeAllowed = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        Boolean locationAllowed = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if(!(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting())) {
@@ -59,10 +62,13 @@ public class MainActivity extends AppCompatActivity implements Login.fromLoginTo
             if(cameraAllowed && readAllowed && writeAllowed){
                 Toast.makeText(this, "All permissions granted!", Toast.LENGTH_LONG).show();
             }else{
+                //Request Permissions for location
                 requestPermissions(new String[]{
                         android.Manifest.permission.CAMERA,
                         android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
                 }, PERMISSIONS_CODE);
             }
         }
@@ -140,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements Login.fromLoginTo
                                         data.put("name", tempUser.getName());
                                         data.put("email", tempUser.getEmail());
                                         data.put("password", tempUser.getPassword());
-                                        data.put("profile", tempUser.getProfilePhoto());
+                                        data.put("profile", tempUser.getProfile());
                                         data.put("category", tempUser.getCategory());
                                         data.put("saved",new ArrayList<FieldValue>());
                                         data.put("recipes_composed", new ArrayList<FieldValue>());
@@ -222,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements Login.fromLoginTo
         uploadImage.addOnSuccessListener(taskSnapshot -> {
                     storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                                 String downloadUrl = uri.toString();
-                                user.setProfilePhoto(downloadUrl);
+                                user.setProfile(downloadUrl);
                                 getSupportFragmentManager().popBackStack();
                                 getSupportFragmentManager().popBackStack();
                                 getSupportFragmentManager().popBackStack();

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundPrimary">
@@ -21,29 +19,29 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="Recipe Title"/>
+            android:text="@string/recipe_title"/>
 
         <!-- Calorie card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="16dp">
+            android:padding="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="Calories:"/>
+                android:text="@string/calories"/>
 
             <TextView
                 android:id="@+id/calorie_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="@color/black"
-                android:text="200"/>
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <!-- Dietary restrictions -->
@@ -51,15 +49,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:padding="16dp"
+            android:padding="8dp"
             android:textColor="@color/black"
-            android:text="Dietary Restrictions:"/>
+            android:textStyle="bold"
+            android:text="@string/dietary_restrictions"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/linear_layout_categories"
             android:orientation="horizontal"
-            android:paddingLeft="16dp">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/vegetarian_icon"
@@ -67,8 +67,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="Vegetarian"
-                android:paddingEnd="8dp"/>
+                android:text="@string/vegetarian"
+                android:padding="8dp"/>
 
             <TextView
                 android:id="@+id/vegan_icon"
@@ -76,8 +76,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="Vegan"
-                android:paddingEnd="8dp"/>
+                android:text="@string/vegan"
+                android:padding="8dp"/>
 
             <TextView
                 android:id="@+id/gluten_free_icon"
@@ -85,8 +85,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="Gluten-free"
-                android:paddingEnd="8dp"/>
+                android:text="@string/gluten_free"
+                android:padding="8dp"/>
 
             <TextView
                 android:id="@+id/dairy_free_icon"
@@ -94,7 +94,45 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="Dairy-free"/>
+                android:text="@string/dairy_free"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/keto_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/keto"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/paleo_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/paleo"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/low_carb_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/low_carb"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/low_fat_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/low_fat"
+                android:padding="8dp"/>
+
         </LinearLayout>
 
         <!-- Ingredients -->
@@ -105,7 +143,7 @@
             android:textColor="@color/black"
             android:padding="16dp"
             android:textStyle="bold"
-            android:text="Ingredients:"/>
+            android:text="@string/ingredients"/>
 
         <TextView
             android:id="@+id/ingredient_list"
@@ -114,7 +152,7 @@
             android:textSize="16sp"
             android:paddingLeft="16dp"
             android:textColor="@color/black"
-            android:text="List of ingredients"
+            android:text="@string/list_of_ingredients"
             android:paddingBottom="16dp"/>
 
         <!-- Instructions -->
@@ -122,7 +160,7 @@
             android:id="@+id/instructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Instructions:"
+            android:text="@string/instructions"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -132,7 +170,6 @@
             android:id="@+id/instructions_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="random text."
             android:textSize="16sp"
             android:textColor="@color/black"
             android:paddingStart="16dp"
@@ -144,25 +181,24 @@
             android:id="@+id/nearby_stores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nearby Stores:"
+            android:text="@string/nearby_stores"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:paddingLeft="16dp"/>
 
         <!-- Rating -->
-        <ImageView
-            android:id="@+id/imageView3"
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            tools:src="@tools:sample/avatars" />
+            android:layout_height="150dp" />
+
 
         <TextView
             android:id="@+id/rating_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rate this recipe:"
+            android:text="@string/rate_this_recipe"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -170,13 +206,13 @@
 
         <RatingBar
             android:id="@+id/rating_bar"
-            android:layout_width="wrap_content"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
-            style="?android:attr/ratingBarStyleIndicator"
-            android:numStars="5"
-            android:stepSize="0.5"
-            android:rating="3.5"
-            android:layout_gravity="center_horizontal"/>
+            android:numStars="1"
+            android:rating="0"
+            android:stepSize="1"
+            android:layout_gravity="center"
+            android:padding="15dp" />
 
         <!-- Comments -->
         <!-- Comments section -->
@@ -184,11 +220,10 @@
             android:id="@+id/comments_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comments"
+            android:text="@string/comments"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:paddingTop="16dp"
-            android:paddingLeft="16dp"
+            android:padding="8dp"
             android:textStyle="bold"/>
 
         <!-- Comments list view -->
@@ -197,7 +232,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:paddingLeft="16dp"
             android:dividerHeight="0dp"/>
 
         <!-- Add comment section -->
@@ -214,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_background"
-                android:hint="Add a comment..."
+                android:hint="@string/add_a_comment"
                 android:minHeight="48dp"
                 android:paddingStart="8dp"
                 android:textSize="16sp" />
@@ -224,12 +258,25 @@
                 android:id="@+id/submit_comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Post"
+                android:text="@string/post"
                 android:textSize="16sp"
                 android:textColor="@color/white"
+                android:padding="8dp"
                 android:background="@drawable/button_rounded"
                 android:layout_marginStart="16dp"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/saved_button_for_recipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_this_post"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginStart="16dp"/>
+
     </LinearLayout>
 </ScrollView>

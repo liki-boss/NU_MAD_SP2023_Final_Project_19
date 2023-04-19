@@ -1,13 +1,15 @@
 package com.example.team19;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipes {
+public class Recipes implements Serializable {
     private String title;
     private String author;
     private String summary;
     private long ratings;
+    private long ratings_count;
     private List<String> comments;
     private String ingredients;
     private String steps;
@@ -18,7 +20,15 @@ public class Recipes {
         //Do Nothing
     }
 
-    public Recipes(String title, String author, String summary, long ratings, List<String> comments, String ingredients, String steps, String calories, ArrayList<String> diet_category, String image) {
+    public long getRatings_count() {
+        return ratings_count;
+    }
+
+    public void setRatings_count(long ratings_count) {
+        this.ratings_count = ratings_count;
+    }
+
+    public Recipes(String title, String author, String summary, long ratings, long ratings_count, List<String> comments, String ingredients, String steps, String calories, ArrayList<String> diet_category, String image) {
         this.title = title;
         this.author = author;
         this.summary = summary;
@@ -27,6 +37,7 @@ public class Recipes {
         this.ingredients = ingredients;
         this.steps = steps;
         this.calories = calories;
+        this.ratings_count = ratings_count;
         this.diet_category = diet_category;
         this.image = image;
     }

@@ -1,7 +1,5 @@
 package com.example.team19;
 
-import com.google.firebase.firestore.FieldValue;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,23 +9,20 @@ public class User implements Serializable {
     private String category;
     private String profile;
     private String password;
-    private ArrayList<FieldValue> saved;
-    private ArrayList<FieldValue> recipes_composed;
+    private ArrayList<String> saved;
+    private ArrayList<String> recipes_composed;
 
-    public ArrayList<FieldValue> getSaved() {
-        return saved;
-    }
-
-    public void setSaved(ArrayList<FieldValue> saved) {
-        this.saved = saved;
-    }
-
-    public ArrayList<FieldValue> getRecipes_composed() {
-        return recipes_composed;
-    }
-
-    public void setRecipes_composed(ArrayList<FieldValue> recipes_composed) {
-        this.recipes_composed = recipes_composed;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", category='" + category + '\'' +
+                ", profile='" + profile + '\'' +
+                ", password='" + password + '\'' +
+                ", saved=" + saved +
+                ", recipes_composed=" + recipes_composed +
+                '}';
     }
 
     public User(){
@@ -40,13 +35,29 @@ public class User implements Serializable {
         this.recipes_composed = new ArrayList<>();
     }
 
-    public User(String name, String email, String category, String profile, String password, ArrayList<FieldValue> saved, ArrayList<FieldValue> recipes_composed) {
+    public User(String name, String email, String category, String profile, String password, ArrayList<String> saved, ArrayList<String> recipes_composed) {
         this.name = name;
         this.email = email;
         this.category = category;
         this.profile = profile;
         this.password = password;
         this.saved = saved;
+        this.recipes_composed = recipes_composed;
+    }
+
+    public ArrayList<String> getSaved() {
+        return saved;
+    }
+
+    public void setSaved(ArrayList<String> saved) {
+        this.saved = saved;
+    }
+
+    public ArrayList<String> getRecipes_composed() {
+        return recipes_composed;
+    }
+
+    public void setRecipes_composed(ArrayList<String> recipes_composed) {
         this.recipes_composed = recipes_composed;
     }
 
@@ -58,11 +69,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getProfilePhoto() {
+    public String getProfile() {
         return profile;
     }
 
-    public void setProfilePhoto(String profilePhoto) {
+    public void setProfile(String profilePhoto) {
         this.profile = profilePhoto;
     }
 

@@ -26,7 +26,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +64,6 @@ public class ChangeProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if(getArguments()!=null){
             user = (User) getArguments().getSerializable(ARG_USER);
-            category = user.getCategory();
         }
     }
 
@@ -82,6 +80,8 @@ public class ChangeProfileFragment extends Fragment {
         dietary_category = view.findViewById(R.id.dietProfile);
         confirm = view.findViewById(R.id.edit_profile_button);
 
+        category = user.getCategory();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("username", MODE_PRIVATE);
         String token = sharedPreferences.getString("token","default_value");
 
@@ -93,12 +93,14 @@ public class ChangeProfileFragment extends Fragment {
                 email.setText(user.getEmail());
             }
             if(!user.getCategory().equals("")){
-                dietary_category.setSelection(Arrays.asList(R.array.category_array).indexOf(user.getCategory()));
+                String[] categories = getResources().getStringArray(R.array.category_array);
+                int index = Arrays.asList(categories).indexOf(user.getCategory());
+                dietary_category.setSelection(index);
             }
-            if(!user.getProfilePhoto().equals("")){
+            if(!user.getProfile().equals("")){
                 RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
                 Glide.with(getContext())
-                        .load(user.getProfilePhoto())
+                        .load(user.getProfile())
                         .apply(requestOptions)
                         .into(profileImage);
             }
@@ -118,7 +120,7 @@ public class ChangeProfileFragment extends Fragment {
                             dietary_category.setSelection(Arrays.asList(R.array.category_array).indexOf(user.getCategory()));
                             RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
                             Glide.with(getContext())
-                                    .load(user2.getProfilePhoto())
+                                    .load(user2.getProfile())
                                     .apply(requestOptions)
                                     .into(profileImage);
                         }
@@ -128,7 +130,7 @@ public class ChangeProfileFragment extends Fragment {
         }
 
         profileImage.setOnClickListener(view1 -> {
-            User user2 = new User(name.getText().toString(),email.getText().toString(),category, user.getProfilePhoto(), user.getPassword(), user.getSaved(), user.getRecipes_composed());
+            User user2 = new User(name.getText().toString(),email.getText().toString(),category, user.getProfile(), user.getPassword(), user.getSaved(), user.getRecipes_composed());
             sendControl.profilePhotoEdit(user2);
         });
 
@@ -145,7 +147,7 @@ public class ChangeProfileFragment extends Fragment {
         });
 
         confirm.setOnClickListener(view12 -> {
-            if(name.getText().toString().equals("") || email.getText().toString().equals("")){
+            if(!name.getText().toString().equals("") || !email.getText().toString().equals("")){
                 FirebaseFirestore db2 = FirebaseFirestore.getInstance();
                 DocumentReference docsRef2 = db2.collection("users").document(token);
 
@@ -153,7 +155,7 @@ public class ChangeProfileFragment extends Fragment {
                 updates.put("name", name.getText().toString());
                 updates.put("email", email.getText().toString());
                 updates.put("category", category);
-                updates.put("profile",user.getProfilePhoto());
+                updates.put("profile",user.getProfile());
 
                 docsRef2.update(updates)
                         .addOnSuccessListener(unused -> getActivity().runOnUiThread(() -> {

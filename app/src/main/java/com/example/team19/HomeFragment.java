@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the  factory method to
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements RecipesAdapter.fromRecipesAdapterToFragment {
@@ -55,13 +55,6 @@ public class HomeFragment extends Fragment implements RecipesAdapter.fromRecipes
     public HomeFragment() {
         // Required empty public constructor
     }
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +78,7 @@ public class HomeFragment extends Fragment implements RecipesAdapter.fromRecipes
         low_fat = view.findViewById(R.id.btn_low_fat);
 
         recipes_adapter = new RecipesAdapter(recipesList, getActivity());
+        recipes_adapter.setmListener(this);
         recipe_cards = view.findViewById(R.id.recipe_recycler_view);
         recipe_cards.setLayoutManager(new LinearLayoutManager(getActivity()));
         recipe_cards.setAdapter(recipes_adapter);
