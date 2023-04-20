@@ -21,10 +21,6 @@ import com.bumptech.glide.Glide;
  * Use the {@link FragmentDisplayImageForConfirmation#newInstance} factory method to
  * create an instance of this fragment.
  */
-/*
-Name: LIKITH VENKATESH GOWDA PRATHIMA
-ASSIGNMENT #09
- */
 public class FragmentDisplayImageForConfirmation extends Fragment {
 
     private static final String ARG_URI = "imageUri";
@@ -39,7 +35,6 @@ public class FragmentDisplayImageForConfirmation extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static FragmentDisplayImageForConfirmation newInstance(Uri imageUri) {
         FragmentDisplayImageForConfirmation fragment = new FragmentDisplayImageForConfirmation();
         Bundle args = new Bundle();

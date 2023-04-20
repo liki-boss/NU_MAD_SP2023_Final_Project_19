@@ -33,10 +33,6 @@ import java.util.concurrent.ExecutionException;
  * Use the {@link FragmentCameraController#newInstance} factory method to
  * create an instance of this fragment.
  */
-/*
-Name: LIKITH VENKATESH GOWDA PRATHIMA
-ASSIGNMENT #09
- */
 public class FragmentCameraController extends Fragment implements View.OnClickListener {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
@@ -89,7 +85,6 @@ public class FragmentCameraController extends Fragment implements View.OnClickLi
         buttonSwitchCamera.setOnClickListener(this);
         buttonOpenGallery.setOnClickListener(this);
 
-//        default lense facing....
         lenseFacing = lenseFacingBack;
 
         setUpCamera(lenseFacing);
@@ -100,7 +95,6 @@ public class FragmentCameraController extends Fragment implements View.OnClickLi
 
 
     private void setUpCamera(int lenseFacing) {
-        //            binding hardware camera with preview, and imageCapture.......
         cameraProviderFuture = ProcessCameraProvider.getInstance(getContext());
         cameraProviderFuture.addListener(()->{
             preview = new Preview.Builder()
@@ -122,7 +116,6 @@ public class FragmentCameraController extends Fragment implements View.OnClickLi
         }, ContextCompat.getMainExecutor(getContext()));
 
     }
-    //  TakePhoto implementation....
     private void takePhoto() {
         long timestamp = System.currentTimeMillis();
         ContentValues contentValues = new ContentValues();

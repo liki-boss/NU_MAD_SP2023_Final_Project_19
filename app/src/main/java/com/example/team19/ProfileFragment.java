@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,6 @@ public class ProfileFragment extends Fragment {
                     name.setText(user.getName());
                     email.setText(user.getEmail());
                     diet.setText(user.getCategory());
-                    Log.d("onResult",user.toString());
                     RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
                     Glide.with(getContext())
                             .load(user.getProfile())

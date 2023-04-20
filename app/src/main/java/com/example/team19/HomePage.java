@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -24,7 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class HomePage extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ProfileFragment.fromProfileToHomePage, FragmentCameraController.DisplayTakenPhoto, FragmentDisplayImageForConfirmation.RetakePhoto, SavedFragment.fromSavedFragmentToHome, HomeFragment.fromHomeFragmentToHomePage, SearchFragment.fromSearchFragmentToHomePage, ChangeProfileFragment.fromProfileEdit {
+public class HomePage extends AppCompatActivity implements ComposeFragment.fromComposeToHome, BottomNavigationView.OnNavigationItemSelectedListener, ProfileFragment.fromProfileToHomePage, FragmentCameraController.DisplayTakenPhoto, FragmentDisplayImageForConfirmation.RetakePhoto, SavedFragment.fromSavedFragmentToHome, HomeFragment.fromHomeFragmentToHomePage, SearchFragment.fromSearchFragmentToHomePage, ChangeProfileFragment.fromProfileEdit {
     final static String USER_KEY = "sending data";
     private User user;
     private FirebaseAuth mAuth;
@@ -191,12 +190,10 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     @Override
     public void selectedRecipe(String id) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Log.d("onResult",id);
         DocumentReference recipesRef = db.collection("recipes").document(id);
         recipesRef.get()
                 .addOnSuccessListener(documentSnapshot -> {
                     Recipes recipe = documentSnapshot.toObject(Recipes.class);
-                    Log.d("onResult",recipe.getTitle());
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentHome, RecipeFragment.newInstance(recipe), "fragments")
                             .addToBackStack(null)
@@ -211,7 +208,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     public void profilePhotoEdit(User tempUser) {
         user = tempUser;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.logInFragment, FragmentCameraController.newInstance(), "cameraFragment")
+                .add(R.id.fragmentHome, FragmentCameraController.newInstance(), "cameraFragment")
                 .addToBackStack("main")
                 .commit();
     }
@@ -219,5 +216,14 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     @Override
     public void finishEdit() {
         getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onSubmit() {
+        getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragmentHome, new ComposeFragment(), "cameraFragment")
+                .addToBackStack("main")
+                .commit();
     }
 }

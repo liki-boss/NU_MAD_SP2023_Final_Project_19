@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,21 +20,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -166,40 +162,31 @@ public class RecipeFragment extends Fragment {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ratings");
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                // Get the current user ID from Firebase Authentication
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference recipesRef = db.collection("recipes").document(recipe.getTitle());
+        ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            // Get the current user ID from Firebase Authentication
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference recipesRef = db.collection("recipes").document(recipe.getTitle());
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("ratings",((recipe.getRatings()*recipe.getRatings_count())+rating)/(recipe.getRatings_count()+1));
-                data.put("ratings_count",recipe.getRatings_count()+1);
+            Map<String, Object> data = new HashMap<>();
+            data.put("ratings",((recipe.getRatings()*recipe.getRatings_count())+rating)/(recipe.getRatings_count()+1));
+            data.put("ratings_count",recipe.getRatings_count()+1);
 
-                recipesRef.update(data)
-                                .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to rate!\n Try again!", Toast.LENGTH_SHORT).show()));
-            }
+            recipesRef.update(data)
+                            .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to rate!\n Try again!", Toast.LENGTH_SHORT).show()));
         });
 
-        // Set the number of stars in the rating bar
         ratingBar.setNumStars(5);
 
-        // Set the step size for the rating bar
         ratingBar.setStepSize(1);
 
-        // Set the default rating for the rating bar
         ratingBar.setRating(recipe.getRatings());
 
-        // Set up Google Maps
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(googleMap -> {
-            // Add marker to map
             LatLng storeLocation = new LatLng(37.7749, -122.4194);
             MarkerOptions markerOptions = new MarkerOptions().position(storeLocation).title("Store");
             googleMap.addMarker(markerOptions);
 
-            // Move camera to marker position
             CameraPosition cameraPosition = new CameraPosition.Builder().target(storeLocation).zoom(12).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         });
@@ -209,13 +196,25 @@ public class RecipeFragment extends Fragment {
 
         newCommentConfirm.setOnClickListener(view12 -> {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("username", MODE_PRIVATE);
-            String token = sharedPreferences.getString("displayName","default_value");
-            String text = "[" + token + "]: " + newComment.getText().toString();
+            String userName = sharedPreferences.getString("displayName","default_value");
+            String text = "[" + userName + "]: " + newComment.getText().toString();
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference recipesRef = db.collection("recipes").document(recipe.getTitle());
 
             recipesRef.update("comments", FieldValue.arrayUnion(text))
+                    .addOnSuccessListener(unused -> {
+                        newComment.setText("");
+                        FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+                        DocumentReference recipesRefTemp = db1.collection("recipes").document(recipe.getTitle());
+                        recipesRefTemp.get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    Recipes recipes = documentSnapshot.toObject(Recipes.class);
+                                    recipe = recipes;
+                                    MyListAdapter adapterForComments1 = new MyListAdapter(getContext(), recipe.getComments().toArray(new String[0]));
+                                    myListView.setAdapter(adapterForComments1);
+                                });
+                    })
                     .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to post comment!", Toast.LENGTH_SHORT).show()));
         });
 
@@ -227,6 +226,7 @@ public class RecipeFragment extends Fragment {
             DocumentReference usersRef = db.collection("users").document(token);
 
             usersRef.update("saved", FieldValue.arrayUnion(recipe.getTitle()))
+                    .addOnSuccessListener(unused -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Successfully added to saved", Toast.LENGTH_SHORT).show()))
                     .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to save recipe!\n Try again!", Toast.LENGTH_SHORT).show()));
 
         });

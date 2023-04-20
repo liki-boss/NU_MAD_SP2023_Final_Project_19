@@ -1,18 +1,17 @@
 package com.example.team19;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.BaseRequestOptions;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
@@ -50,6 +49,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         holder.title.setText(recipes.get(position).getTitle());
         holder.summary.setText(recipes.get(position).getSummary());
         holder.author.setText(recipes.get(position).getAuthor());
+        holder.ratingBar.setRating(recipes.get(position).getRatings());
         RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
         Glide.with(activity.getBaseContext())
                 .load(recipes.get(position).getImage())
@@ -66,6 +66,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         private TextView title;
         private TextView summary;
         private TextView author;
+        private RatingBar ratingBar;
         private ImageView recipeImage;
 
         public ViewHolder(@NonNull View itemView, List<Recipes> recipe) {
@@ -74,6 +75,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             title = itemView.findViewById(R.id.recipe_title);
             summary = itemView.findViewById(R.id.recipe_summary);
             author = itemView.findViewById(R.id.recipe_author);
+            ratingBar = itemView.findViewById(R.id.recipe_rating);
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {

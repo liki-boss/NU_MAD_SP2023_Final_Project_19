@@ -3,6 +3,7 @@ package com.example.team19;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -21,11 +22,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -57,6 +57,7 @@ public class ComposeFragment extends Fragment {
     private Button upload_image;
     private Button submit;
     private FirebaseFirestore db;
+    private fromComposeToHome sendData;
 
     public ComposeFragment() {
         // Required empty public constructor
@@ -96,73 +97,97 @@ public class ComposeFragment extends Fragment {
         String token = sharedPreferences.getString("token","default_value");
         String username = sharedPreferences.getString("displayName","default_value");
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<String> category_value = new ArrayList<>();
-                if(title.getText().equals("") || summary.getText().equals("") || calories.getText().equals("") || ingredients.getText().equals("") || steps.getText().equals("") || recipeImage == null){
-                    if(recipeImage == null){
-                        getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Upload an Image!", Toast.LENGTH_LONG).show());
-                    }
-                    else{
-                        getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "One or more fields are missing!", Toast.LENGTH_LONG).show());
-                    }
+        submit.setOnClickListener(view12 -> {
+            ArrayList<String> category_value = new ArrayList<>();
+            if(title.getText().equals("") || summary.getText().equals("") || calories.getText().equals("") || ingredients.getText().equals("") || steps.getText().equals("") || recipeImage == null){
+                if(recipeImage == null){
+                    getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Upload an Image!", Toast.LENGTH_LONG).show());
                 }
                 else{
-                    if(vegetarian.isChecked()){
-                        category_value.add("Vegetarian");
-                    }
-                    if(vegan.isChecked()){
-                        category_value.add("Vegan");
-                    }
-                    if(gluten.isChecked()){
-                        category_value.add("Gluten-Free");
-                    }
-                    if(dairy.isChecked()){
-                        category_value.add("Dairy-Free");
-                    }
-                    if(keto.isChecked()){
-                        category_value.add("Keto");
-                    }
-                    if(paleo.isChecked()){
-                        category_value.add("Paleo");
-                    }
-                    if(low_carb.isChecked()){
-                        category_value.add("Low-Carb");
-                    }
-                    if(low_fat.isChecked()){
-                        category_value.add("Low-Fat");
-                    }
-                    db = FirebaseFirestore.getInstance();
-                    Map<String, Object> data = new HashMap<>();
-
-                    data.put("title",title.getText().toString());
-                    data.put("summary",summary.getText().toString());
-                    data.put("ingredients",ingredients.getText().toString());
-                    data.put("steps",steps.getText().toString());
-                    data.put("calories",calories.getText().toString());
-                    data.put("diet_category",category_value);
-                    data.put("image",recipeImage);
-                    data.put("author",username);
-                    data.put("ratings",0);
-                    data.put("ratings_count",0);
-                    data.put("comments",new ArrayList<String>());
-
-                    db.collection("recipes").document(title.getText().toString()).set(data)
-                            .addOnSuccessListener(documentReference -> {
-                                String id = title.getText().toString();
-                                db.collection("users").document(token)
-                                        .update("recipes_composed", FieldValue.arrayUnion(id))
-                                        .addOnSuccessListener(unused -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Successfully added recipe!", Toast.LENGTH_SHORT).show()))
-                                        .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to submit recipe!\n Try again!", Toast.LENGTH_SHORT).show()));
-                            })
-                            .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to submit recipe!\n Try again!", Toast.LENGTH_SHORT).show()));
+                    getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "One or more fields are missing!", Toast.LENGTH_LONG).show());
                 }
+            }
+            else{
+                if(vegetarian.isChecked()){
+                    category_value.add("Vegetarian");
+                }
+                if(vegan.isChecked()){
+                    category_value.add("Vegan");
+                }
+                if(gluten.isChecked()){
+                    category_value.add("Gluten-Free");
+                }
+                if(dairy.isChecked()){
+                    category_value.add("Dairy-Free");
+                }
+                if(keto.isChecked()){
+                    category_value.add("Keto");
+                }
+                if(paleo.isChecked()){
+                    category_value.add("Paleo");
+                }
+                if(low_carb.isChecked()){
+                    category_value.add("Low-Carb");
+                }
+                if(low_fat.isChecked()){
+                    category_value.add("Low-Fat");
+                }
+                db = FirebaseFirestore.getInstance();
+                Map<String, Object> data = new HashMap<>();
+
+                data.put("title",title.getText().toString());
+                data.put("summary",summary.getText().toString());
+                data.put("ingredients",ingredients.getText().toString());
+                data.put("steps",steps.getText().toString());
+                data.put("calories",calories.getText().toString());
+                data.put("diet_category",category_value);
+                data.put("image",recipeImage);
+                data.put("author",username);
+                data.put("ratings",0);
+                data.put("ratings_count",0);
+                data.put("comments",new ArrayList<String>());
+
+                db.collection("recipes").get()
+                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                    boolean value = true;
+                                    for(QueryDocumentSnapshot queryDocumentSnapshot: queryDocumentSnapshots){
+                                        Recipes recipes = queryDocumentSnapshot.toObject(Recipes.class);
+                                        if(title.getText().toString() == recipes.getTitle()){
+                                            value = false;
+                                            break;
+                                        }
+                                    }
+                                    if(value){
+                                        db.collection("recipes").document(title.getText().toString()).set(data)
+                                                .addOnSuccessListener(documentReference -> {
+                                                    String id = title.getText().toString();
+                                                    db.collection("users").document(token)
+                                                            .update("recipes_composed", FieldValue.arrayUnion(id))
+                                                            .addOnSuccessListener(unused -> {getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Successfully added recipe!", Toast.LENGTH_SHORT).show());
+                                                                sendData.onSubmit();})
+                                                            .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to submit recipe!\n Try again!", Toast.LENGTH_SHORT).show()));
+                                                })
+                                                .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to submit recipe!\n Try again!", Toast.LENGTH_SHORT).show()));
+                                    }
+                                    else {
+                                        getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Title already exists!", Toast.LENGTH_SHORT).show());
+                                        sendData.onSubmit();
+                                    }
+                                });
             }
         });
 
         return view;
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof fromComposeToHome){
+            sendData = (fromComposeToHome) context;
+        }
+    }
+
     ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -175,7 +200,8 @@ public class ComposeFragment extends Fragment {
                     uploadImage.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.getDownloadUrl().addOnSuccessListener(uri -> recipeImage = uri.toString())
+                            storageReference.getDownloadUrl().addOnSuccessListener(uri -> {recipeImage = uri.toString();
+                            getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Successfully added image!", Toast.LENGTH_SHORT).show());})
                             .addOnFailureListener(exception -> Toast.makeText(getContext(), "Upload Failed! Try again!", Toast.LENGTH_SHORT).show());;
                         }
                     })
@@ -189,5 +215,8 @@ public class ComposeFragment extends Fragment {
         String[] mimeTypes = {"image/jpeg", "image/png"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
         galleryLauncher.launch(intent);
+    }
+    public interface fromComposeToHome{
+        void onSubmit();
     }
 }

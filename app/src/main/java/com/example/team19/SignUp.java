@@ -114,12 +114,9 @@ public class SignUp extends Fragment {
                 category_value = Arrays.asList(R.array.category_array).get(0).toString();
             }
         });
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User user = new User(name.getText().toString(),email.getText().toString(),category_value, "", "", new ArrayList<>(), new ArrayList<>());
-                sendControl.profilePhoto(user);
-            }
+        profile.setOnClickListener(view12 -> {
+            User user = new User(name.getText().toString(),email.getText().toString(),category_value, "", "", new ArrayList<>(), new ArrayList<>());
+            sendControl.profilePhoto(user);
         });
         register.setOnClickListener(view1 -> {
             if(name.getText().toString().equals("") || email.getText().toString().equals("") || password.getText().toString().equals("") || confirm_password.getText().toString().equals("")){

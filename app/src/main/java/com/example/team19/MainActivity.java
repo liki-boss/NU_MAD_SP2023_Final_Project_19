@@ -19,10 +19,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -86,14 +88,20 @@ public class MainActivity extends AppCompatActivity implements Login.fromLoginTo
                     .commit();
         } else {
             FirebaseUser user = mAuth.getCurrentUser();
-            SharedPreferences sharedPreferences = getSharedPreferences("username", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("token", user.getEmail());
-            editor.putString("displayName",user.getDisplayName());
-            editor.apply();
-            Intent toInClass08Activity2 = new Intent(MainActivity.this, HomePage.class);
-            toInClass08Activity2.putExtra(USER_KEY,user);
-            startActivity(toInClass08Activity2);
+
+            db = FirebaseFirestore.getInstance();
+            db.collection("users").document(user.getEmail()).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        User user2 = documentSnapshot.toObject(User.class);
+                        SharedPreferences sharedPreferences = getSharedPreferences("username", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", user.getEmail());
+                        editor.putString("displayName",user2.getName());
+                        editor.apply();
+                        Intent toInClass08Activity2 = new Intent(MainActivity.this, HomePage.class);
+                        toInClass08Activity2.putExtra(USER_KEY,user);
+                        startActivity(toInClass08Activity2);
+                    });
         }
     }
 
@@ -112,14 +120,21 @@ public class MainActivity extends AppCompatActivity implements Login.fromLoginTo
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        SharedPreferences sharedPreferences = getSharedPreferences("username", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("token", user.getEmail());
-                        editor.putString("displayName",user.getDisplayName());
-                        editor.apply();
-                        Intent toInClass08Activity2 = new Intent(MainActivity.this, HomePage.class);
-                        toInClass08Activity2.putExtra(USER_KEY,user);
-                        startActivity(toInClass08Activity2);
+
+                        db = FirebaseFirestore.getInstance();
+                        db.collection("users").document(user.getEmail()).get()
+                                        .addOnSuccessListener(documentSnapshot -> {
+                                            User user2 = documentSnapshot.toObject(User.class);
+                                            SharedPreferences sharedPreferences = getSharedPreferences("username", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("token", user.getEmail());
+                                            editor.putString("displayName",user2.getName());
+                                            editor.apply();
+                                            Intent toInClass08Activity2 = new Intent(MainActivity.this, HomePage.class);
+                                            toInClass08Activity2.putExtra(USER_KEY,user);
+                                            startActivity(toInClass08Activity2);
+                                        });
+
                     } else {
                         Toast.makeText(this, "Authentication failed!\n Try again!", Toast.LENGTH_LONG).show();
                     }

@@ -19,7 +19,6 @@ public class Recipes implements Serializable {
     public Recipes(){
         //Do Nothing
     }
-
     public long getRatings_count() {
         return ratings_count;
     }

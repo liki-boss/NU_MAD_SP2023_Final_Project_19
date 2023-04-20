@@ -110,20 +110,17 @@ public class ChangeProfileFragment extends Fragment {
             DocumentReference docsRef = db.collection("users").document(token);
 
             docsRef.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            User user2 = documentSnapshot.toObject(User.class);
-                            user = user2;
-                            name.setText(user2.getName());
-                            email.setText(user2.getEmail());
-                            dietary_category.setSelection(Arrays.asList(R.array.category_array).indexOf(user.getCategory()));
-                            RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
-                            Glide.with(getContext())
-                                    .load(user2.getProfile())
-                                    .apply(requestOptions)
-                                    .into(profileImage);
-                        }
+                    .addOnSuccessListener(documentSnapshot -> {
+                        User user2 = documentSnapshot.toObject(User.class);
+                        user = user2;
+                        name.setText(user2.getName());
+                        email.setText(user2.getEmail());
+                        dietary_category.setSelection(Arrays.asList(R.array.category_array).indexOf(user.getCategory()));
+                        RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.broken_image);
+                        Glide.with(getContext())
+                                .load(user2.getProfile())
+                                .apply(requestOptions)
+                                .into(profileImage);
                     })
                     .addOnFailureListener(e -> getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Unable to fetch data!", Toast.LENGTH_SHORT).show()));
 
